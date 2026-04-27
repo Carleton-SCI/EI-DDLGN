@@ -1,8 +1,8 @@
 # EI-DDLGN: Efficient Encrypted Inference with Deep Differential Logic Gate Networks under TFHE
 
-This repository contains code and experiments aligned with the paper:
+This repository contains code and experiments aligned with our paper:
 
-"Efficient Privacy Preserving Inference with Deep Logic Gate Networks under TFHE"
+"EI-DDLGN: Efficient Encrypted Inference with Deep Differential Logic Gate Networks under TFHE"
 
 The project focuses on privacy-preserving MNIST inference using Deep Differential Logic Gate Networks (DDLGNs) and a Boolean-native TFHE evaluation backend.
 
