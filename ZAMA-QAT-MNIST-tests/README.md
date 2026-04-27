@@ -1,4 +1,4 @@
-# MNIST With FHE
+# QAT-FCNN MNIST 
 
 This folder contains a local MNIST experiment workflow adapted from Zama's Concrete-ML example. It supports quantization-aware model use and FHE/VL evaluation, then saves structured JSON reports under `experiment_reports/`.
 
