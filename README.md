@@ -1,79 +1,49 @@
-# PP-DDLGN: Privacy Preserving Differentiable Logic Gate Networks
+# EI-DDLGN: Efficient Encrypted Inference with Deep Differential Logic Gate Networks under TFHE
 
-This repository implements Privacy Preserving Differentiable Logic Gate Networks (DDLGNs), focusing on encrypted inference for the MNIST dataset using Fully Homomorphic Encryption (FHE).
+This repository contains code and experiments aligned with the paper:
 
-## Project Structure
+"Efficient Privacy Preserving Inference with Deep Logic Gate Networks under TFHE"
 
-The repository is organized as follows:
+The project focuses on privacy-preserving MNIST inference using Deep Differential Logic Gate Networks (DDLGNs) and a Boolean-native TFHE evaluation backend.
 
-- **`MNIST_DDLGNs/`**: Main directory containing the implementation and resources for MNIST DDLGNs.
-  - **`lgn_eval/`**: A Rust crate for evaluating DDLGNs on encrypted data. It supports multiple TFHE backends (Boolean, Shortint, and Integer).
-  - **`trained_models/`**: Contains exported model architectures (`best_lgn_gates.csv`), metadata, and binarized test datasets.
-  - **`DDLGNs__MNIST.ipynb`**: Jupyter notebook for training the DDLGN models and performing initial binarization.
-  - **`GUIDE_FOR_MAHMOUD.md`**: A detailed guide for reconstructing and validating the exported models.
-  - **`DiffLogic_Installation_Guide.pdf`**: Documentation for setting up the environment.
-  - **`ref_main.py` & `ref_mnist_dataset.py`**: Reference Python scripts for model handling.
-- **`tfhe-rs/`**: Zama's variant of the TFHE Fully Homomorphic Encryption library (Version 1.6.0). This library provides the cryptographic primitives used for encrypted inference.
+## Scope and Main Idea
 
----
+- DDLGNs are trained and discretized into logic-gate circuits.
+- Encrypted inference is executed as Boolean gate evaluation under TFHE.
+- This avoids integer-accumulation sensitivity to circuit bit-width that appears in QAT-based arithmetic baselines.
 
-## Encrypted Inference for MNIST DDLGNs
-(Please refer to the [lgn_eval/README.md](MNIST_DDLGNs/lgn_eval/README.md) for detailed instructions on how to use the crate.)
+## Repository Layout
 
+- `EI-DDLGN Framework/`: Core EI-DDLGN artifacts for MNIST.
+    - `DDLGNs__MNIST.ipynb`: notebook for training/export workflow.
+    - `trained_models/`: exported models and binarized test sets.
+    - `lgn_eval/`: Rust evaluator crate for plaintext checks and encrypted Boolean inference.
+- `ZAMA-QAT-MNIST-tests/`: baseline workflow used for QAT-FCNN comparison.
+- `tfhe-rs/`: TFHE-rs codebase used as cryptographic backend.
 
-### Overview
+For evaluator usage details, see `EI-DDLGN Framework/lgn_eval/README.md`.
 
-The `lgn_eval` crate provides a Rust-based implementation for evaluating DDLGNs on the MNIST dataset using **Fully Homomorphic Encryption (FHE)**. It utilizes the [TFHE-rs](https://github.com/zama-ai/tfhe-rs) library to perform inference on encrypted data, ensuring that the input images remain confidential during processing.
+## Reported Results
 
-### Components
-The project implements the same logic gate network evaluation using three different TFHE backends to compare performance and implementation strategies:
+For EI-DDLGN on MNIST (Boolean backend):
 
-1.  **Boolean Backend** (`bin/lgn_eval_boolean`):
-    *   **Implementation**: Uses `tfhe::boolean`.
-    *   **Logic**: Native simulation of logic gates (AND, OR, XOR, NOT, NAND, NOR, XNOR).
-    *   **Use Case**: Typically the most efficient for pure boolean logic networks.
+- Small model: 92.14% accuracy, 6.995 s/image total latency.
+- Medium model: 96.11% accuracy, 20.164 s/image total latency.
+- Large model: 97.23% accuracy, 33.731 s/image total latency.
 
-2.  **Shortint Backend** (`bin/lgn_eval_shortint`):
-    *   **Implementation**: Uses `tfhe::shortint`.
-    *   **Logic**: Represents booleans as encrypted 2-bit integers (values 0 and 1). Gates are evaluated using **Programmable Bootstrapping (PBS)** and Bivariate Look-Up Tables (LUTs).
-    *   **Use Case**: Demonstrates the flexibility of PBS to implement arbitrary functions.
+Compared to reproduced QAT-FCNN baselines in the same paper:
 
-3.  **Integer Backend** (`bin/lgn_eval_integer`):
-    *   **Implementation**: Uses `tfhe::integer` (Radix decomposition).
-    *   **Logic**: Treat inputs as encrypted integers but utilizes efficient bitwise operations (`unchecked_bitand`, `bitnot`, etc.) provided by the integer crate.
-    *   **Use Case**: Suitable when integrating boolean logic into larger arithmetic calculations.
+- FCNN accuracy range: 91.54% to 92.58%.
+- FCNN latency range: 88.24 to 207.98 s/image.
 
-### Prerequisites
-*   **Rust**: Stable toolchain (install via `rustup`).
-*   **TFHE-rs**: Automatically handled by Cargo dependencies.
-*   **Model & Data**: The binaries expect a directory containing:
-    *   `best_lgn_gates.csv`: The network topology definition.
-    *   `best_lgn_metadata.json`: Model metadata (input dimensions, class counts).
-    *   `test_binarized.csv`: The binarized MNIST test dataset (labels + boolean pixels).
-
-### Building
-To build the project in release mode (critical for FHE performance):
+## Quick Start (Boolean Inference)
 
 ```bash
-cd MNIST_DDLGNs/lgn_eval
+cd "EI-DDLGN Framework/lgn_eval"
 cargo build --release
+cargo run --release --bin lgn_eval_boolean -- ../trained_models/20260309_220106 --limit 5
 ```
 
-### Usage
+## Notes and Limitations
 
-#### Command Line Interface
-All three binaries share the same CLI argument structure:
-
-```bash
-cargo run --release --bin <BINARY_NAME> -- <MODEL_DIR> [--limit N]
-```
-
-*   `<BINARY_NAME>`: One of `lgn_eval_boolean`, `lgn_eval_shortint`, `lgn_eval_integer`.
-*   `<MODEL_DIR>`: Path to the directory containing the model and data files.
-*   `--limit N` (Optional): Limits the evaluation to the first `N` test vectors.
-
-#### Parallelization
-The inference engine utilizes **Rayon** for parallel processing. Neurons within the same layer are evaluated in parallel. You can control the thread count via the `RAYON_NUM_THREADS` environment variable.
-
-### Performance & Accuracy
-The tools provide detailed logs including accuracy, total encryption time, total evaluation time, and average latency per vector. For more detailed information on the Rust implementation, refer to the [lgn_eval/README.md](MNIST_DDLGNs/lgn_eval/README.md).
+As reported in the paper, evaluation is currently centered on feedforward DDLGNs and MNIST, with one-image-at-a-time encrypted inference under an honest-but-curious threat model.

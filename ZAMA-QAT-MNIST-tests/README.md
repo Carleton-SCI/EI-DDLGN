@@ -1,10 +1,18 @@
-# QAT-FCNN MNIST 
+# QAT-FCNN MNIST Baseline (for EI-DDLGN Comparison)
 
-This folder contains a local MNIST experiment workflow adapted from Zama's Concrete-ML example. It supports quantization-aware model use and FHE/VL evaluation, then saves structured JSON reports under `experiment_reports/`.
+This folder contains the local workflow used to reproduce the arithmetic QAT-FCNN baseline referenced in the EI-DDLGN paper comparison on MNIST.
+
+It supports quantization-aware model use and FHE/VL evaluation, then saves structured JSON reports under `experiment_reports/`.
+
+Paper-aligned role of this folder:
+
+- Provides arithmetic TFHE-compatible FCNN baselines for comparison.
+- Serves as the reference side of the accuracy-latency comparison against EI-DDLGN Boolean inference.
+- Matches the paper's narrow-range, 2-bit quantization comparison setup.
 
 ## 1) Environment Setup
 
-Run these commands from this directory (`use_case_examples/mnist`).
+Run these commands from this directory (`ZAMA-QAT-MNIST-tests`).
 
 ### One-time setup
 
@@ -134,3 +142,13 @@ RAM:
 - Core code basis: Zama Concrete-ML example repository  
   `https://github.com/zama-ai/concrete-ml/tree/release/0.6.x/use_case_examples`
 - Related paper: *Deep Neural Networks for Encrypted Inference with TFHE*
+
+## 7) Paper Comparison Context
+
+In the EI-DDLGN paper's reported MNIST comparison:
+
+- QAT-FCNN baselines (this workflow family) are reported in the 91.54%-92.58% accuracy range.
+- QAT-FCNN encrypted latency is reported in the 88.24-207.98 s/image range.
+- EI-DDLGN Boolean models are reported as both faster and, for medium/large variants, more accurate in that setting.
+
+This directory is kept to reproduce and inspect the arithmetic baseline side of that comparison.
