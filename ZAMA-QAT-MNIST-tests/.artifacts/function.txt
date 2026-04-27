@@ -1,0 +1,33 @@
+"""Utils that can be re-used by other pieces of code in the module."""
+
+import string
+from types import FunctionType
+from typing import Callable, Dict, Iterable, Tuple
+
+import onnx
+
+from ..common.debugging import assert_true
+
+_VALID_ARG_CHARS = set(string.ascii_letters).union(str(i) for i in range(10)).union(("_",))
+
+# Default probability of success of PBS
+DEFAULT_P_ERROR_PBS = 6.3342483999973e-05
+
+
+def replace_invalid_arg_name_chars(arg_name: str) -> str:
+    """Sanitize arg_name, replacing invalid chars by _.
+
+    This does not check that the starting character of arg_name is valid.
+
+    Args:
+        arg_name (str): the arg name to sanitize.
+
+    Returns:
+        str: the sanitized arg name, with only chars in _VALID_ARG_CHARS.
+    """
+    arg_name_as_chars = list(arg_name)
+    for idx, char in enumerate(arg_name_as_chars):
+        if char not in _VALID_ARG_CHARS:
+            arg_name_as_chars[idx] = "_"
+
+    return "".join(arg_name_as_chars)

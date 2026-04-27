@@ -1,0 +1,153 @@
+# Perform a security check on all the cryptographic parameters set
+name: parameters_check
+
+env:
+  CARGO_TERM_COLOR: always
+  ACTION_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+  RUSTFLAGS: "-C target-cpu=native"
+  # Secrets will be available only to zama-ai organization members
+  SECRETS_AVAILABLE: ${{ secrets.JOB_SECRET != '' }}
+  EXTERNAL_CONTRIBUTION_RUNNER: "large_ubuntu_16"
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/parameters_check.yml'
+      - 'ci/lattice_estimator.sage'
+      - 'tfhe/examples/utilities/params_to_file.rs'
+      - 'tfhe/src/shortint/parameters/*'
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
+
+permissions: {}
+
+# zizmor: ignore[concurrency-limits] only Zama organization members and GitHub can trigger this workflow
+
+jobs:
+  setup-instance:
+    name: parameters_check/setup-instance
+    if:
+      (github.event_name == 'push' && github.repository == 'zama-ai/tfhe-rs') ||
+      github.event_name != 'push'
+    runs-on: ubuntu-latest
+    outputs:
+      runner-name: ${{ steps.start-remote-instance.outputs.label || steps.start-github-instance.outputs.runner_group }}
+    steps:
+      - name: Start remote instance
+        id: start-remote-instance
+        if: env.SECRETS_AVAILABLE == 'true'
+        uses: zama-ai/slab-github-runner@d4580322fc216877c48ac2987df9573ffd03476c # v1.5.0
+        with:
+          mode: start
+          github-token: ${{ secrets.SLAB_ACTION_TOKEN }}
+          slab-url: ${{ secrets.SLAB_BASE_URL }}
+          job-secret: ${{ secrets.JOB_SECRET }}
+          backend: aws
+          profile: cpu-small
+
+      # This instance will be spawned especially for pull-request from forked repository
+      - name: Start GitHub instance
+        id: start-github-instance
+        if: env.SECRETS_AVAILABLE == 'false'
+        run: |
+          echo "runner_group=${EXTERNAL_CONTRIBUTION_RUNNER}" >> "$GITHUB_OUTPUT"
+
+  params-curves-security-check:
+    name: parameters_check/params-curves-security-check
+    needs: setup-instance
+    runs-on: ${{ needs.setup-instance.outputs.runner-name }}
+    steps:
+      - name: Checkout tfhe-rs
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: 'false'
+          token: ${{ secrets.REPO_CHECKOUT_TOKEN }}
+
+      - name: Install latest stable
+        uses: dtolnay/rust-toolchain@e97e2d8cc328f1b50210efc529dca0028893a2d9 # zizmor: ignore[stale-action-refs] this action doesn't create releases
+        with:
+          toolchain: stable
+
+      - name: Checkout lattice-estimator
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: malb/lattice-estimator
+          path: lattice_estimator
+          ref: '352ddaf4a288a0543f5d9eb588d2f89c7acec463'
+          persist-credentials: 'false'
+
+      - name: Install Sage
+        run: |
+          sudo apt update
+          sudo apt install -y sagemath
+
+      - name: Collect parameters
+        run: |
+          CARGO_PROFILE=devo make write_params_to_file
+
+      - name: Get start time
+        if: ${{ always() }}
+        id: start-time
+        run: |
+          echo "value=$(date +%s)" >> "${GITHUB_OUTPUT}"
+
+      - name: Perform security check
+        run: |
+          PYTHONPATH=lattice_estimator sage ci/lattice_estimator.sage
+
+      - name: Get time elapsed
+        if: ${{ always() }}
+        shell: python
+        env:
+          START_DATE: ${{ steps.start-time.outputs.value }}
+        run: |
+          import datetime
+          import math
+          import os
+          
+          env_file = os.environ["GITHUB_ENV"]
+          
+          start_date = datetime.datetime.fromtimestamp(int(os.environ["START_DATE"]))
+          end_date = datetime.datetime.now()
+          total_minutes = math.floor((end_date - start_date).total_seconds() / 60)
+          
+          with open(env_file, "a") as f:
+            f.write(f"TIME_ELAPSED={total_minutes}\n")
+
+      - name: Slack Notification
+        if: ${{ always() }}
+        continue-on-error: true
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661
+        env:
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
+          SLACK_ICON: https://pbs.twimg.com/profile_images/1274014582265298945/OjBKP9kn_400x400.png
+          SLACK_MESSAGE: "Security check for parameters finished with status: ${{ job.status }} (analysis took: ${{ env.TIME_ELAPSED }} mins). (${{ env.ACTION_RUN_URL }})"
+          SLACK_USERNAME: ${{ secrets.BOT_USERNAME }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+  teardown-instance:
+    name: parameters_check/teardown-instance
+    if: ${{ always() && needs.setup-instance.result == 'success' }}
+    needs: [setup-instance, params-curves-security-check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop remote instance
+        id: stop-instance
+        if: env.SECRETS_AVAILABLE == 'true'
+        uses: zama-ai/slab-github-runner@d4580322fc216877c48ac2987df9573ffd03476c # v1.5.0
+        with:
+          mode: stop
+          github-token: ${{ secrets.SLAB_ACTION_TOKEN }}
+          slab-url: ${{ secrets.SLAB_BASE_URL }}
+          job-secret: ${{ secrets.JOB_SECRET }}
+          label: ${{ needs.setup-instance.outputs.runner-name }}
+
+      - name: Slack Notification
+        if: ${{ failure() }}
+        uses: rtCamp/action-slack-notify@e31e87e03dd19038e411e38ae27cbad084a90661
+        env:
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: "Instance teardown (params-curves-security-check) finished with status: ${{ job.status }}. (${{ env.ACTION_RUN_URL }})"

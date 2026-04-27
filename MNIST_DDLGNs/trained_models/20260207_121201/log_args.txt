@@ -1,0 +1,1 @@
+{"id": 10, "tau": 10.0, "batch_size": 100, "learning_rate": 0.01, "epochs": 200, "patience": 10, "num_neurons": 8000, "num_layers": 6, "img_size": 28, "seed": 952, "valid_set_size": 0.1, "pixel_mode": "multi_threshold", "num_niveis": 3}

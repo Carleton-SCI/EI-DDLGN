@@ -1,0 +1,63 @@
+{
+  "class_count": 10,
+  "img_size": 28,
+  "pixel_mode": "multi_threshold",
+  "num_niveis": 3,
+  "in_dim": 2352,
+  "num_layers": 6,
+  "num_neurons": 8000,
+  "tau": 10.0,
+  "logic_layer_sizes": [
+    8000,
+    8000,
+    8000,
+    8000,
+    8000,
+    8000
+  ],
+  "gate_operations": [
+    "zero",
+    "and",
+    "not_implies",
+    "a",
+    "not_implied_by",
+    "b",
+    "xor",
+    "or",
+    "not_or",
+    "not_xor",
+    "not_b",
+    "implied_by",
+    "not_a",
+    "implies",
+    "not_and",
+    "one"
+  ],
+  "group_sum": {
+    "type": "GroupSum",
+    "class_count": 10,
+    "tau": 10.0
+  },
+  "preprocess": {
+    "to_tensor": true,
+    "binarization": {
+      "type": "levels_thresholds",
+      "num_niveis": 3,
+      "thresholds": [
+        0.25,
+        0.5,
+        0.75
+      ],
+      "comparison": ">"
+    },
+    "flatten_order": "row_major"
+  },
+  "csv_fields": [
+    "layer",
+    "neuron",
+    "input_a",
+    "input_b",
+    "gate_id",
+    "gate_name"
+  ]
+}

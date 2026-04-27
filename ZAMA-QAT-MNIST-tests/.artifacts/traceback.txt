@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/home/mahmoud/Documents/Github Projects/PP-DDLGN/zama-minist-tests/use_case_examples/mnist/.venv/lib/python3.9/site-packages/concrete/numpy/compilation/compiler.py", line 432, in compile
+    circuit = Circuit(self.graph, mlir, self.configuration)
+  File "/home/mahmoud/Documents/Github Projects/PP-DDLGN/zama-minist-tests/use_case_examples/mnist/.venv/lib/python3.9/site-packages/concrete/numpy/compilation/circuit.py", line 56, in __init__
+    self.server = Server.create(mlir, input_signs, output_signs, self.configuration)
+  File "/home/mahmoud/Documents/Github Projects/PP-DDLGN/zama-minist-tests/use_case_examples/mnist/.venv/lib/python3.9/site-packages/concrete/numpy/compilation/server.py", line 109, in create
+    compilation_result = support.compile(mlir, options)
+  File "/home/mahmoud/Documents/Github Projects/PP-DDLGN/zama-minist-tests/use_case_examples/mnist/.venv/lib/python3.9/site-packages/concrete/compiler/library_support.py", line 151, in compile
+    self.cpp().compile(mlir_program, options.cpp())
+RuntimeError: Can't emit artifacts: Command failed:ld --shared -o /tmp/tmpbugh2dwb/sharedlib.so /tmp/tmpbugh2dwb.module-0.mlir.o /home/mahmoud/Documents/Github Projects/PP-DDLGN/zama-minist-tests/use_case_examples/mnist/.venv/lib/python3.9/site-packages/concrete_compiler.libs/libConcretelangRuntime-748b479f.so -rpath=/home/mahmoud/Documents/Github Projects/PP-DDLGN/zama-minist-tests/use_case_examples/mnist/.venv/lib/python3.9/site-packages/concrete_compiler.libs --disable-new-dtags 2>&1
+Code:256
+ld: cannot find /home/mahmoud/Documents/Github: No such file or directory
+ld: cannot find Projects/PP-DDLGN/zama-minist-tests/use_case_examples/mnist/.venv/lib/python3.9/site-packages/concrete_compiler.libs/libConcretelangRuntime-748b479f.so: No such file or directory
+ld: cannot find Projects/PP-DDLGN/zama-minist-tests/use_case_examples/mnist/.venv/lib/python3.9/site-packages/concrete_compiler.libs: No such file or directory
+
