@@ -1,4 +1,4 @@
-# Plaintext Evaluation Guide for MNIST DDLGNs
+# Plaintext Evaluation Guide for DDLGNs on MNIST
 
 This guide explains how to run the exported MNIST Logic Gate Networks in Rust without encryption first, validate their accuracy, and prepare the same exported models for later TFHE evaluation.
 
