@@ -1,26 +1,0 @@
-Step 1/4: Loading model metadata and gates...
-Model Loaded Successfully.
-========================================
-Network Summary:
-  Input Dimension: 784
-  Output Classes:  10
-  Total Layers:    2
-  Neurons/Layer:   4000
-  Total Neurons:   8000
-========================================
-Step 2/4: Generating TFHE Boolean keys...
-  Key generation done in 0.333s
-Step 3/4: Analyzing test dataset...
-  Total Test Vectors found: 10000
-  Will evaluate: 5
-Step 4/4: Starting encrypted evaluation...
-Progress: 20.0% done, 4 test vectors remain   Progress: 40.0% done, 3 test vectors remain   Progress: 60.0% done, 2 test vectors remain   Progress: 80.0% done, 1 test vectors remain   Progress: 100.0% done, 0 test vectors remain   
-Evaluation Complete.
-Accuracy: 1.0000000000000000
-Total encryption time: 0.172s
-Total evaluation time: 34.788s
-Total decryption time: 0.014s
-Avg encrypt/vector: 0.034366s
-Avg eval/vector: 6.957577s
-Avg decrypt/vector: 0.002834s
-Avg end-to-end/vector: 6.994777s
