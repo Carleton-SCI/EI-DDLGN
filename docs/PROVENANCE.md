@@ -33,6 +33,6 @@ This reduces the code package from a broad development workspace to a roughly 35
 
 ## Reproducibility boundary
 
-The QAT-FCNN values in Table 5 were provided as aggregate results from the baseline experiment. No raw QAT-FCNN runs or baseline implementation were available in the source material. The values are retained in `artifacts/measurements/qat_fcnn_baselines.csv`, with their 10-run aggregation noted, but this repository cannot independently regenerate those six baseline rows.
+The QAT-FCNN values in Table 5 were provided as aggregate results from the baseline experiment. A separate source snapshot contained the QAT-FCNN training and FHE evaluation implementation, a reference ONNX model, and compiler MLIR; these are included under `baselines/qat-fcnn-mnist/`. The original 60 per-seed JSON reports and complete seed list were not available. The reported values remain in `artifacts/measurements/qat_fcnn_baselines.csv`, while the included code supports a new independent reproduction of all six configurations.
 
 The EI-DDLGN wall-clock measurements were recorded with `samples=5` for each of the 72 configurations. This fact is now explicit in the README, validation logic, artifact documentation, and reproduction guide.

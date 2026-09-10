@@ -20,6 +20,15 @@ jobs:
       - run: python -m pytest
       - run: python scripts/validate_results.py
       - run: python scripts/reproduce_paper.py --figures-dir build/figures --tables-dir build/tables
+      - name: Validate QAT baseline scripts
+        run: |
+          python -m py_compile \
+            baselines/qat-fcnn-mnist/model.py \
+            baselines/qat-fcnn-mnist/mnist_in_fhe.py \
+            baselines/qat-fcnn-mnist/run_paper_sweep.py \
+            baselines/qat-fcnn-mnist/aggregate_reports.py
+          python baselines/qat-fcnn-mnist/run_paper_sweep.py \
+            --seeds 1 2 3 4 5 6 7 8 9 10 --dry-run > /dev/null
 
   rust:
     runs-on: ubuntu-latest

@@ -27,6 +27,10 @@ The exported gates—not the Python pickle—are the deployed model representati
 
 `artifacts/MANIFEST.sha256` records SHA-256 checksums for the packaged models and measurements.
 
+## QAT-FCNN baseline code
+
+`baselines/qat-fcnn-mnist/` contains the Python 3.9/Concrete-ML workflow used for the arithmetic MNIST comparison in Table 5. It includes training and FHE evaluation code, a reference ONNX model, compiler MLIR, a 60-run sweep helper, and a JSON-report aggregator. See the baseline README for the environment, commands, and limits of exact reproduction.
+
 ## Generated outputs
 
 The committed files under `paper/` are conveniences for paper integration. They can be replaced at any time with `python scripts/reproduce_paper.py`; the canonical numeric inputs live under `artifacts/measurements/`.

@@ -10,3 +10,5 @@
 *.ipynb text eol=lf
 *.pdf binary
 *.png binary
+*.onnx binary
+*.mlir.txt binary

@@ -8,3 +8,8 @@ Networks under TFHE."
 The software depends on TFHE-rs and difflogic but does not vendor their source.
 Those projects and the MNIST, Fashion-MNIST, and UCI Phishing datasets remain
 subject to their respective copyright notices and licenses.
+
+The QAT-FCNN baseline includes code adapted from Zama's Concrete-ML MNIST
+example, Copyright © 2022 ZAMA, under the BSD 3-Clause Clear License. The
+baseline directory preserves that notice and the MIT notice covering the
+Carleton-SCI modifications.

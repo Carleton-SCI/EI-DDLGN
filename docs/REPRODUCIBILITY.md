@@ -93,4 +93,8 @@ The manuscript measurements used an Intel Core i9-10900 with 10 cores/20 threads
 - use reruns to confirm scaling and correctness on a new machine; and
 - do not expect wall-clock equality across machines.
 
-The QAT-FCNN Table 5 data are aggregate results over 10 independently trained seeds. The aggregate values are present, but the underlying QAT-FCNN implementation and raw per-seed records were not available when this repository was assembled.
+## Tier 5: reproduce the QAT-FCNN baseline
+
+`baselines/qat-fcnn-mnist/` contains the Concrete-ML QAT training, compilation, virtual-library evaluation, and FHE evaluation workflow for the six QAT-FCNN rows in Table 5. It also includes a reference ONNX model, the compiler MLIR output, a six-configuration sweep runner, and a report aggregator. Follow its dedicated README in a Linux x86-64 Python 3.9 environment. This legacy dependency stack is intentionally separate from the repository's primary Docker image.
+
+The Table 5 data are aggregate results over 10 independently trained seeds. The implementation is now included, but the original 60 per-seed JSON reports and complete seed list were not available. New runs can independently reproduce the experiment protocol; exact aggregate accuracy and hardware-dependent latency may vary.

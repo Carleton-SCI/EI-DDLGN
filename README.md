@@ -15,6 +15,8 @@ Systems and Computer Engineering, Carleton University, Ottawa, Ontario, Canada.
 
 This repository packages the exact 72 exported logic-gate networks used in the accepted manuscript: three datasets, six depths, and four widths. It also includes the Rust encrypted-inference backend, the static PBS analyzer, recorded measurements, training notebooks, and deterministic figure/table generation.
 
+The arithmetic QAT-FCNN comparison code is included under [`baselines/qat-fcnn-mnist`](baselines/qat-fcnn-mnist). It can retrain and evaluate the six MNIST baseline configurations used in Table 5 and aggregate a ten-seed sweep into the paper's table format.
+
 ## Quick start
 
 Python 3.11 or newer is required.
@@ -61,7 +63,7 @@ docker run --rm ei-ddlgn
 docker run --rm ei-ddlgn python scripts/reproduce_paper.py
 ```
 
-The default container command validates the packaged artifact. Model training is not included in the CPU image because the original training environment used the `difflogic` CUDA extension.
+The default container command validates the packaged artifact. DDLGN model training is not included in the CPU image because the original training environment used the `difflogic` CUDA extension. The QAT-FCNN baseline also uses a separate legacy Python 3.9/Concrete-ML environment documented in its own README.
 
 ## Repository layout
 
@@ -69,6 +71,8 @@ The default container command validates the packaged artifact. Model training is
 artifacts/
   measurements/       recorded data behind the paper tables and plots
   models/             72 exported gate networks plus five benchmark inputs each
+baselines/
+  qat-fcnn-mnist/      Concrete-ML QAT-FCNN training and FHE baseline
 crates/ei-ddlgn-eval/ Rust plaintext and TFHE evaluators
 docs/                 audit, artifact inventory, and reproduction instructions
 notebooks/            cleaned paper-results and training notebooks
@@ -82,7 +86,7 @@ tests/                focused analyzer tests
 
 The recorded EI-DDLGN encrypted latency grid evaluates five inputs per model with 20 Rayon threads on an Intel Core i9-10900 (10 cores/20 threads, 2.8 GHz) with 32 GB DDR4 RAM. Timings on other machines are expected to differ; PBS counts and predictions are deterministic.
 
-The QAT-FCNN rows in Table 5 are preserved from the reproduced baseline experiment used by the accepted manuscript. The available source material contains the aggregate 10-seed values but not the raw QAT-FCNN runs or baseline implementation. This boundary is documented in [`docs/PROVENANCE.md`](docs/PROVENANCE.md) rather than overstating end-to-end reproducibility.
+The QAT-FCNN rows in Table 5 are preserved from the reproduced baseline experiment used by the accepted manuscript. The baseline implementation and a reference ONNX model are included, so users can rerun the six-configuration, ten-seed experiment protocol. The original per-seed reports and complete seed list were not available; this boundary is documented in [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
 
 ## Citation
 
@@ -90,4 +94,4 @@ Use [`CITATION.cff`](CITATION.cff) for the software citation. Replace its provis
 
 ## License
 
-The EI-DDLGN code and artifact metadata are licensed under the [Apache License 2.0](LICENSE). Dataset and dependency licenses remain with their respective owners; see [`NOTICE`](NOTICE).
+The EI-DDLGN code and result metadata are licensed under the [Apache License 2.0](LICENSE), except where a subdirectory carries its own notice. The QAT-FCNN baseline preserves the MIT and BSD-3-Clause-Clear notices that apply to its source. Dataset and dependency licenses remain with their respective owners; see [`NOTICE`](NOTICE).

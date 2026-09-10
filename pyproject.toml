@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ei-ddlgn"
-version = "1.0.1"
+version = "1.1.0"
 description = "Official code for EI-DDLGN encrypted inference under TFHE"
 readme = "README.md"
 requires-python = ">=3.11"

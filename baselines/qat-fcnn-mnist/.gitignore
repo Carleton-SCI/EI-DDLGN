@@ -1,0 +1,7 @@
+.venv/
+.checkpoints/
+.artifacts/
+__pycache__/
+data/
+experiment_reports/
+qat_fcnn_aggregated.csv
