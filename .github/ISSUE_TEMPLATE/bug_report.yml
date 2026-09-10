@@ -1,0 +1,27 @@
+name: Bug report
+description: Report a reproducibility, analysis, or implementation problem
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem
+      description: Describe what happened and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and output
+      description: Include the exact command and the relevant output.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, Python/Rust versions, CPU, thread count, and Docker status when relevant.
+    validations:
+      required: true

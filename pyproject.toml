@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ei-ddlgn"
+version = "1.0.1"
+description = "Official code for EI-DDLGN encrypted inference under TFHE"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [
+  { name = "Mahmoud Y. M. Yassin" },
+  { name = "Mahmoud AbdelHafez Sayed" },
+  { name = "Mostafa Taha" },
+]
+dependencies = [
+  "jinja2>=3.1,<4",
+  "matplotlib>=3.10,<3.11",
+  "numpy>=2.0,<3",
+  "pandas>=2.2,<3",
+]
+
+[project.urls]
+Homepage = "https://github.com/Carleton-SCI/EI-DDLGN"
+Repository = "https://github.com/Carleton-SCI/EI-DDLGN"
+Issues = "https://github.com/Carleton-SCI/EI-DDLGN/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.4,<9"]
+notebooks = ["jupyterlab>=4.4,<5"]
+
+[project.scripts]
+ei-ddlgn-analyze = "ei_ddlgn.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]

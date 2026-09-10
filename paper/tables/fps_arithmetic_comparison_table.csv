@@ -1,0 +1,10 @@
+Model,Size / active conn.,Acc. (\%),Time/img (s),Circuit bit-width
+EI-DDLGN Small,"2 layers, 4K width",91.55,6.58,N/A
+EI-DDLGN Medium,"4 layers, 6K width",95.87,19.33,N/A
+EI-DDLGN Large,"6 layers, 8K width",97.2,34.14,N/A
+QAT-FCNN-4,56 active conn.,91.54,88.24,6-bit: 50%; 7-bit: 50%
+QAT-FCNN-6,84 active conn.,92.25,126.97,6-bit: 10%; 7-bit: 90%
+QAT-FCNN-8,112 active conn.,92.45,136.68,7-bit: 100%
+QAT-FCNN-10,140 active conn.,92.29,135.98,7-bit: 100%
+QAT-FCNN-11,154 active conn.,92.58,132.25,7-bit: 100%
+QAT-FCNN-12,168 active conn.,92.42,207.98,7-bit: 90%; 8-bit: 10%

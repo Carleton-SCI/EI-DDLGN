@@ -1,0 +1,10 @@
+Model,Dataset,Acc. (\%),Public const. (\%),PBS before (\%),PBS after (\%),PBS red. (\%),EI eval. (s)
+Small ($2\times 4K$),MNIST,91.55,4.59,65.22,61.58,5.6,6.58
+Small ($2\times 4K$),FashionMNIST,77.49,4.99,63.96,61.0,4.63,6.47
+Small ($2\times 4K$),UCI Phishing,92.4,9.85,64.45,59.3,7.99,6.33
+Medium ($4\times 6K$),MNIST,95.87,2.69,63.58,60.44,4.94,19.33
+Medium ($4\times 6K$),FashionMNIST,81.27,2.15,61.03,58.91,3.48,18.82
+Medium ($4\times 6K$),UCI Phishing,93.93,9.38,58.83,48.08,18.27,15.35
+Large ($6\times 8K$),MNIST,97.2,4.34,59.22,53.36,9.91,34.14
+Large ($6\times 8K$),FashionMNIST,83.51,3.78,58.47,53.99,7.66,34.51
+Large ($6\times 8K$),UCI Phishing,95.23,9.1,55.55,41.87,24.62,26.74

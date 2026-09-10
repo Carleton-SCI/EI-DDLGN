@@ -1,0 +1,4 @@
+Dataset,models,mean,median,min,max
+MNIST,24,5.324,5.684,0.0,9.906
+FashionMNIST,24,3.919,3.436,0.0,11.905
+UCI Phishing Websites,24,14.233,15.653,0.0,27.685

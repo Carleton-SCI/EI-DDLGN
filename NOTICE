@@ -1,0 +1,10 @@
+EI-DDLGN
+Copyright 2026 EI-DDLGN contributors
+
+This product includes experiment metadata and code developed for the paper
+"EI-DDLGN: Efficient Encrypted Inference with Deep Differentiable Logic Gate
+Networks under TFHE."
+
+The software depends on TFHE-rs and difflogic but does not vendor their source.
+Those projects and the MNIST, Fashion-MNIST, and UCI Phishing datasets remain
+subject to their respective copyright notices and licenses.

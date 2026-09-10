@@ -1,0 +1,29 @@
+[package]
+name = "lgn_eval"
+version = "1.0.1"
+edition = "2021"
+description = "TFHE evaluators for EI-DDLGN Boolean logic-gate networks"
+authors = [
+    "Mahmoud Y. M. Yassin",
+    "Mahmoud AbdelHafez Sayed",
+    "Mostafa Taha",
+]
+license = "Apache-2.0"
+repository = "https://github.com/Carleton-SCI/EI-DDLGN"
+
+[dependencies]
+csv = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rayon = "1"
+tfhe = { version = "=1.6.0", features = ["boolean", "shortint", "integer"] }
+# TFHE 1.6.0 declared permissive pre-1.0 ranges for these support crates.
+# Their later patch releases switched versioning traits and no longer compile
+# with TFHE 1.6.0, so retain the release-compatible graph explicitly.
+tfhe-csprng = "=0.9.0"
+tfhe-safe-serialize = "=0.1.0"
+tfhe-versionable = "=0.7.0"
+
+[[bin]]
+name = "EI_DDLGN"
+path = "src/bin/ei_ddlgn.rs"

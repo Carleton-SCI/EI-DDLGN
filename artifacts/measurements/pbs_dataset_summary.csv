@@ -1,0 +1,4 @@
+Dataset,Models,Total Gates,Baseline PBS,Optimized PBS,PBS Saved,Mean Model PBS Reduction %,max_pbs_reduction_percent,mean_public_const_outputs,Models With Accuracy,Overall PBS Reduction %
+MNIST,24,420000,262777,246299,16478,5.324,9.906,853.125,24,6.271
+FashionMNIST,24,420000,259016,247559,11457,3.919,11.905,625.333,24,4.423
+UCI Phishing Websites,24,420000,245340,201674,43666,14.233,27.685,2702.083,24,17.798

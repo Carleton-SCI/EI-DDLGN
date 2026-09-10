@@ -1,0 +1,69 @@
+{
+  "class_count": 10,
+  "img_size": 28,
+  "pixel_mode": "threshold_05",
+  "num_niveis": 3,
+  "in_dim": 784,
+  "num_layers": 3,
+  "num_neurons": 8000,
+  "tau": 10.0,
+  "logic_layer_sizes": [
+    8000,
+    8000,
+    8000
+  ],
+  "gate_operations": [
+    "zero",
+    "and",
+    "not_implies",
+    "a",
+    "not_implied_by",
+    "b",
+    "xor",
+    "or",
+    "not_or",
+    "not_xor",
+    "not_b",
+    "implied_by",
+    "not_a",
+    "implies",
+    "not_and",
+    "one"
+  ],
+  "group_sum": {
+    "type": "GroupSum",
+    "class_count": 10,
+    "tau": 10.0
+  },
+  "preprocess": {
+    "to_tensor": true,
+    "binarization": {
+      "type": "single_threshold",
+      "threshold": 0.5,
+      "comparison": ">"
+    },
+    "flatten_order": "row_major"
+  },
+  "csv_fields": [
+    "layer",
+    "neuron",
+    "input_a",
+    "input_b",
+    "gate_id",
+    "gate_name"
+  ],
+  "discretized_model": {
+    "gates_csv": "best_lgn_gates.csv",
+    "metadata_json": "best_lgn_metadata.json",
+    "rule": "gate_id is argmax over the learned 16 gate logits for each neuron"
+  },
+  "sweep": {
+    "depth": 3,
+    "width": 8000,
+    "run_id": "20260615_133536"
+  },
+  "best_epoch": 48,
+  "best_val_accuracy": 0.9621666431427002,
+  "test_accuracy_python_discrete": 0.9592999798059464,
+  "model_file": "Model_depth-03_width-08000_epoch-48"
+}

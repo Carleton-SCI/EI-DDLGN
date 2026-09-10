@@ -1,0 +1,10 @@
+Dataset,Model Size,D,W,Accuracy (%),PBS Before Optimization (%),Actual Constant (%),PBS After Optimization (%),PBS Reduction (%)
+MNIST,Small,2,4K,91.55,65.22,4.59,61.58,5.6
+MNIST,Medium,4,6K,95.87,63.58,2.69,60.44,4.94
+MNIST,Large,6,8K,97.2,59.22,4.34,53.36,9.91
+FashionMNIST,Small,2,4K,77.49,63.96,4.99,61.0,4.63
+FashionMNIST,Medium,4,6K,81.27,61.03,2.15,58.91,3.48
+FashionMNIST,Large,6,8K,83.51,58.47,3.78,53.99,7.66
+UCI Phishing Websites,Small,2,4K,92.4,64.45,9.85,59.3,7.99
+UCI Phishing Websites,Medium,4,6K,93.93,58.83,9.38,48.08,18.27
+UCI Phishing Websites,Large,6,8K,95.23,55.55,9.1,41.87,24.62

@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the EI-DDLGN paper. Update the preferred paper citation after the camera-ready proceedings record is available."
+title: "EI-DDLGN: Efficient Encrypted Inference with Deep Differentiable Logic Gate Networks under TFHE"
+type: software
+authors:
+  - family-names: "Yassin"
+    given-names: "Mahmoud Y. M."
+    affiliation: "Systems and Computer Engineering, Carleton University, Ottawa, Ontario, Canada"
+  - family-names: "Sayed"
+    given-names: "Mahmoud AbdelHafez"
+    affiliation: "Systems and Computer Engineering, Carleton University, Ottawa, Ontario, Canada"
+  - family-names: "Taha"
+    given-names: "Mostafa"
+    affiliation: "Systems and Computer Engineering, Carleton University, Ottawa, Ontario, Canada"
+repository-code: "https://github.com/Carleton-SCI/EI-DDLGN"
+license: "Apache-2.0"
+version: "1.0.1"
+date-released: "2026-09-10"
+keywords:
+  - fully homomorphic encryption
+  - TFHE
+  - differentiable logic gate networks
+  - privacy-preserving inference
+preferred-citation:
+  type: article
+  title: "EI-DDLGN: Efficient Encrypted Inference with Deep Differentiable Logic Gate Networks under TFHE"
+  authors:
+    - family-names: "Yassin"
+      given-names: "Mahmoud Y. M."
+    - family-names: "Sayed"
+      given-names: "Mahmoud AbdelHafez"
+    - family-names: "Taha"
+      given-names: "Mostafa"
+  year: 2026

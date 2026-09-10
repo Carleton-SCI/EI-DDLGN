@@ -1,0 +1,7 @@
+model,active_connections,accuracy_percent,time_per_image_seconds,circuit_bit_width,runs,provenance
+QAT-FCNN-4,56,91.54,88.24,"6-bit: 50%; 7-bit: 50%",10,"Reproduced QAT-FCNN narrow-range 2-bit experiment recorded in the accepted manuscript"
+QAT-FCNN-6,84,92.25,126.97,"6-bit: 10%; 7-bit: 90%",10,"Reproduced QAT-FCNN narrow-range 2-bit experiment recorded in the accepted manuscript"
+QAT-FCNN-8,112,92.45,136.68,"7-bit: 100%",10,"Reproduced QAT-FCNN narrow-range 2-bit experiment recorded in the accepted manuscript"
+QAT-FCNN-10,140,92.29,135.98,"7-bit: 100%",10,"Reproduced QAT-FCNN narrow-range 2-bit experiment recorded in the accepted manuscript"
+QAT-FCNN-11,154,92.58,132.25,"7-bit: 100%",10,"Reproduced QAT-FCNN narrow-range 2-bit experiment recorded in the accepted manuscript"
+QAT-FCNN-12,168,92.42,207.98,"7-bit: 90%; 8-bit: 10%",10,"Reproduced QAT-FCNN narrow-range 2-bit experiment recorded in the accepted manuscript"
