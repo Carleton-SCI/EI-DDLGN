@@ -86,12 +86,11 @@ tests/                focused analyzer tests
 
 The recorded EI-DDLGN encrypted latency grid evaluates five inputs per model with 20 Rayon threads on an Intel Core i9-10900 (10 cores/20 threads, 2.8 GHz) with 32 GB DDR4 RAM. Timings on other machines are expected to differ; PBS counts and predictions are deterministic.
 
-The QAT-FCNN rows in Table 5 are preserved from the reproduced baseline experiment used by the accepted manuscript. The baseline implementation and a reference ONNX model are included, so users can rerun the six-configuration, ten-seed experiment protocol. The original per-seed reports and complete seed list were not available; this boundary is documented in [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
+The QAT-FCNN rows in Table 5 are preserved from the reproduced baseline experiment used by the accepted manuscript. The baseline implementation and a reference ONNX model are included, so users can rerun the six-configuration, ten-seed experiment protocol.
 
 ## Citation
 
-Use [`CITATION.cff`](CITATION.cff) for the software citation. Replace its provisional metadata with the camera-ready author list and proceedings identifier before making the repository public.
-
+Use [`CITATION.cff`](CITATION.cff) for the software citation. 
 ## License
 
 The EI-DDLGN code and result metadata are licensed under the [Apache License 2.0](LICENSE), except where a subdirectory carries its own notice. The QAT-FCNN baseline preserves the MIT and BSD-3-Clause-Clear notices that apply to its source. Dataset and dependency licenses remain with their respective owners; see [`NOTICE`](NOTICE).
