@@ -3,7 +3,7 @@
 [![CI](https://github.com/Carleton-SCI/EI-DDLGN/actions/workflows/ci.yml/badge.svg)](https://github.com/Carleton-SCI/EI-DDLGN/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-Official code repository for the paper **“EI-DDLGN: Efficient Encrypted Inference with Deep Differentiable Logic Gate Networks under TFHE.”** EI-DDLGN evaluates discretized Deep Differentiable Logic Gate Networks with TFHE Boolean ciphertexts and applies Model-Fixed-Wire PBS Bypass (MFW-PBS Bypass) to avoid binary programmable bootstrapping when model-fixed wires collapse a gate to `0`, `1`, `x`, or `not x`.
+Official code repository for the paper **“EI-DDLGN: Efficient Encrypted Inference with Deep Differentiable Logic Gate Networks under TFHE.”** EI-DDLGN evaluates discretized Deep Differentiable Logic Gate Networks with TFHE Boolean ciphertexts and applies Model-Fixed-Wire PBS Bypass (MFW-PBS Bypass) to avoid programmable bootstrapping (PBS) when model-fixed wires collapse a gate to `0`, `1`, `x`, or `not x`.
 
 ## Authors
 
@@ -13,7 +13,7 @@ Official code repository for the paper **“EI-DDLGN: Efficient Encrypted Infere
 
 Systems and Computer Engineering, Carleton University, Ottawa, Ontario, Canada.
 
-This repository packages the exact 72 exported logic-gate networks used in the accepted manuscript: three datasets, six depths, and four widths. It also includes the Rust encrypted-inference backend, the static PBS analyzer, recorded measurements, training notebooks, and deterministic figure/table generation.
+This repository packages the exact 72 exported logic-gate networks used in the manuscript: three datasets, six depths, and four widths. It also includes the Rust encrypted-inference backend, the static PBS analyzer, recorded measurements, training notebooks, and deterministic figure/table generation.
 
 The arithmetic QAT-FCNN comparison code is included under [`baselines/qat-fcnn-mnist`](baselines/qat-fcnn-mnist). It can retrain and evaluate the six MNIST baseline configurations used in Table 5 and aggregate a ten-seed sweep into the paper's table format.
 
