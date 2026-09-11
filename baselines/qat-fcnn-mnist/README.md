@@ -85,8 +85,6 @@ The full sweep performs 60 training, compilation, and FHE runs and can take many
 - `bit_widths.FHE short` is the compiled circuit's maximum integer bit width.
 - `timing.fhe_encrypt_run_decrypt_avg_seconds` is the mean per-image FHE time and excludes training, compilation, and key generation.
 
-## Provenance and licenses
-
-The baseline was imported from [`Carleton-SCI/EI-DDLGN-First-version`](https://github.com/Carleton-SCI/EI-DDLGN-First-version/tree/main/ZAMA-QAT-MNIST-tests) at commit `c4fe31c954c72644bf739e66d568921943b46495`. Python bytecode, compiler scratch files, and downloaded MNIST files were intentionally excluded.
+## licenses
 
 The local baseline modifications are provided under the included MIT license. The core example was adapted from [Zama Concrete-ML's MNIST example](https://github.com/zama-ai/concrete-ml/tree/release/0.6.x/use_case_examples/mnist), whose BSD-3-Clause-Clear notice is also included. Installed dependencies and MNIST remain governed by their respective terms.
